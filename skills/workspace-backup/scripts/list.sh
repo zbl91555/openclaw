@@ -1,33 +1,22 @@
 #!/bin/bash
-# List available workspace backups with their semantic context
+# List workspace backup history via git log
 
-BACKUP_DIR=".backups"
+echo "================ 📜 工作区 GitHub 备份历史 ================"
+echo ""
 
-# Check if backup files exist securely
-if [ ! -d "$BACKUP_DIR" ] || [ -z "$(ls -A "$BACKUP_DIR"/*.meta 2>/dev/null)" ]; then
-    echo "📂 当前没有任何附带语义化描述的工作区备份历史。"
-    exit 0
+# Check if we're in a git repo
+if ! git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
+    echo "❌ 当前目录不是 Git 仓库，无法查看备份历史。"
+    exit 1
 fi
 
-echo "================ 当前可用的时光机历史记录 ================"
+# Show commit history with index
+git log --oneline --format="%C(yellow)%h%Creset  %C(cyan)%ad%Creset  %s" --date=format:"%Y-%m-%d %H:%M" | head -20 | nl -w2 -s". "
 
-# Parse and print each metadata file cleanly
-for meta in "$BACKUP_DIR"/*.meta; do
-    if [ -f "$meta" ]; then
-        FILE=$(grep "^File: " "$meta" | sed 's/^File: //')
-        MSG=$(grep "^Message: " "$meta" | sed 's/^Message: //')
-        DATE=$(grep "^Date: " "$meta" | sed 's/^Date: //')
-        
-        # Verify the actual archive exists
-        if [ -f "$BACKUP_DIR/$FILE" ]; then
-            SIZE=$(ls -lh "$BACKUP_DIR/$FILE" | awk '{print $5}')
-            echo "📝 场景状态 :【 $MSG 】"
-            echo "🕒 封存时间 : $DATE"
-            echo "💾 物理体积 : $SIZE"
-            echo "📦 精确文件 : $FILE"
-            echo "--------------------------------------------------------"
-        fi
-    fi
-done
-
-echo "💡 提示：您可以使用 restore 脚本配合精确文件(如: backup_xxx.tar.gz) 进行还原。"
+echo ""
+TOTAL=$(git rev-list --count HEAD 2>/dev/null || echo "?")
+echo "📊 历史快照总数: $TOTAL 条"
+echo "🌐 远端仓库: $(git remote get-url origin 2>/dev/null || echo '未配置')"
+echo ""
+echo "💡 提示：使用 Commit ID（前7位）即可还原至对应状态。"
+echo "   例如: restore.sh abc1234"

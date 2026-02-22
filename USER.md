@@ -1,17 +1,13 @@
-# USER.md - About Your Human
+# USER.md
 
-_Learn about the person you're helping. Update this as you go._
+- **Name:** 林哥
+- **What to call them:** 林哥
+- **Timezone:** Asia/Shanghai
+- **Language:** 中文（简体）— 所有回复、文档、注释默认使用中文，代码标识符保持英文
 
-- **Name:**
-- **What to call them:**
-- **Pronouns:** _(optional)_
-- **Timezone:**
-- **Notes:**
+## Notes & Boundaries
+- **核心边界**：每次涉及到工作区配置的修改（如技能配置、核心脚本、系统环境等），绝对不能擅自执行，必须事先找林哥确认。
+- 每一步修改完毕，都要即时进行反馈和状态同步。
 
 ## Context
-
-_(What do they care about? What projects are they working on? What annoys them? What makes them laugh? Build this over time.)_
-
----
-
-The more you know, the better you can help. But remember — you're learning about a person, not building a dossier. Respect the difference.
+林哥需要严谨的架构师视角和优质技术内容输出保障。沟通时务求直言不讳、直击痛点，保证“做了什么”、“为什么做”、“好坏是什么”的透明度。
