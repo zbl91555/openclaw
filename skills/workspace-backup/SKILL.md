@@ -1,61 +1,44 @@
 ---
 name: workspace-backup
-description: Backup and restore OpenClaw workspace configurations and important files. Supports creating snapshots and reverting back to previous states to prevent data loss.
-when: "When user mentions '备份工作区', '还原备份', 'backup workspace', 'restore config', '配置备份', '保存工作区状态', '备份', '恢复'"
+description: 运用高级快照策略自动化备份和还原工作区配置和核心数据。保障因误操作引起的数据遗失，能够无痕回滚至之前安全版本，并忽略无关庞大依赖库。
+when: "当用户要求 '备份工作区', '还原', 'backup config', 'restore workspace', '工作区备份', '查看历史备份', '创建快照' 时"
 examples:
-  - "帮我把当前的 workspace 配置备份一下"
-  - "还原到昨天的备份"
-  - "备份配置文件"
-  - "查看所有备份"
-  - "restore workspace"
+  - "帮我创建一个当前的 workspace 配置快照"
+  - "我现在有哪些之前的工作区备份？"
+  - "我刚才操作错误，快帮我还原回昨天打包的备份！"
+  - "执行工作区快照备份"
 metadata:
   openclaw:
     requires:
-      bins: ["tar", "mkdir", "bash", "ls"]
+      bins: ["bash", "tar", "ls"]
+    emoji: "📦"
 ---
 
-# Workspace Backup & Restore
+# Workspace Backup
 
-This skill provides the ability to safely backup and restore the user's workspace configurations, securing their environment against unintended changes.
+You are now equipped with the `workspace-backup` skill. Please apply structured cognitive processing while balancing speed and accuracy based on specific situational requirements.
+作为专门负责处理工作区数据安全的专家，您的使命是保护并管理本地的隐藏备份记录 `.backups/`。
 
-## Backup Directory Location
-All backups are stored locally in the workspace under the `<workspace_root>/.backups/` directory.
+## 功能说明与脚本映射
 
-## 1. Creating a Backup (备份)
-When the user requests to backup the workspace configuration, execute the following steps:
-1. **Ensure the backup directory exists:**
-   ```bash
-   mkdir -p .backups
-   ```
-2. **Create a compressed archive:**
-   Create a timestamped archive containing the workspace files, ensuring that heavy or unnecessary directories (like `node_modules`, `.git`, `.tmp`, and `.backups` itself) are excluded to save space.
-   ```bash
-   tar -czvf .backups/workspace_backup_$(date +%Y%m%d_%H%M%S).tar.gz --exclude='.git' --exclude='node_modules' --exclude='.backups' --exclude='.tmp' .
-   ```
-3. **Confirm success:**
-   Notify the user that the backup was created successfully, providing the exact filename of the new backup.
+按照 `advanced-skill-creator` 中的官方推荐分离 `[定义]` 与 `[实现]` 策略，所有的逻辑操作均交由外部脚本实现，提升触发准确性和维护性。
 
-## 2. Viewing Backups (查看备份列表)
-When the user wants to see available backups:
-1. **List the backups:**
-   ```bash
-   ls -lh .backups/
-   ```
-2. **Display to user:**
-   Present the list of backups in a clean, readable Markdown list or table, showing the filename, date/time, and file size.
+### 1. 创建备份 (Backup)
+当用户需要将当前的配置与状态封存起来时：
+- **执行指令**：`bash skills/workspace-backup/scripts/backup.sh`
+- 该脚本会自动将文件封存在本地 `.backups/` 中，并排除 `.git`, `node_modules` 和 `.tmp`。
 
-## 3. Restoring a Backup (还原)
-When the user requests to restore the workspace or configurations from a backup:
-1. If the user hasn't specified which backup to use, first list the available backups and ask them to choose.
-2. **Execute the restore command:**
-   Extract the archive over the current workspace. *Warning: Ensure the user is aware this will overwrite current files.*
-   ```bash
-   tar -xzvf .backups/<backup_filename.tar.gz> -C ./
-   ```
-3. **Confirm success:**
-   Notify the user that the workspace has been successfully restored from the selected backup.
+### 2. 查看备份历史 (List History)
+当用户迷失方向，需要知道手头上有哪些"时光机"可以回溯时：
+- **执行指令**：`bash skills/workspace-backup/scripts/list.sh`
+- 您应将输出的美观易读的表格或结构化数据返回（包括大小和文件名）。
 
-## Security & Best Practices
-- Never include sensitive global keys that are outside the workspace.
-- Always prompt for confirmation before restoring, as it overrides current uncommitted work.
-- Suggest to the user to clean up old backups if the `.backups/` folder grows too large.
+### 3. 指定还原 (Restore)
+用户选择特定快照（由 `list.sh` 提供）后请求时光倒流：
+- **操作前警告**：如果用户未主动表示同意，您须礼貌告知这将会**覆盖并抹除现有修改**。
+- **执行指令**：`bash skills/workspace-backup/scripts/restore.sh <backup_filename>`
+- 例如: `bash skills/workspace-backup/scripts/restore.sh workspace_backup_20240101_101010.tar.gz`
+
+## 系统执行准则
+- 不进行任何侵略性操作（如从远端随意下载）。
+- 您应该主动关心用户：如果备份目录体积过大，请提醒用户可能需要手动删除 `.backups/` 中的陈旧压缩包。
