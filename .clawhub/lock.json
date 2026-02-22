@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "skills": {
+    "perplexity": {
+      "version": "1.0.0",
+      "installedAt": 1770919405939
+    },
+    "web-search-pro": {
+      "version": "1.0.0",
+      "installedAt": 1771768988442
+    },
+    "find": {
+      "version": "1.0.0",
+      "installedAt": 1771768968784
+    },
+    "summarize": {
+      "version": "1.0.0",
+      "installedAt": 1771768972839
+    },
+    "self-improving-agent": {
+      "version": "1.0.10",
+      "installedAt": 1771768993469
+    },
+    "exa-web-search-free": {
+      "version": "1.0.1",
+      "installedAt": 1771768948676
+    },
+    "openai-whisper": {
+      "version": "1.0.0",
+      "installedAt": 1771736518405
+    },
+    "ui-ux-pro-max": {
+      "version": "0.1.0",
+      "installedAt": 1771768984390
+    },
+    "evolver": {
+      "version": "1.14.0",
+      "installedAt": 1771768964787
+    },
+    "feishu-evolver-wrapper": {
+      "version": "1.6.1",
+      "installedAt": 1771747922378
+    }
+  }
+}

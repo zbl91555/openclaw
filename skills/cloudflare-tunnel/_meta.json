@@ -1,0 +1,7 @@
+{
+  "name": "cloudflare-tunnel",
+  "version": "1.0.0",
+  "description": "快速创建 Cloudflare Tunnel 内网穿透",
+  "author": "OpenClaw User",
+  "created_at": "2026-02-22T14:51:00+08:00"
+}

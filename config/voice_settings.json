@@ -1,0 +1,8 @@
+{
+  "voiceConversation": {
+    "enabled": true,
+    "voice": "zh-CN-XiaoxiaoNeural",
+    "speed": 1.3,
+    "autoTTS": true
+  }
+}
