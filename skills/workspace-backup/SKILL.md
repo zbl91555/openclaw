@@ -19,6 +19,7 @@ metadata:
 You are now equipped with the `workspace-backup` skill. 作为专门负责工作区数据安全的专家，您的使命是通过 **Git + GitHub** 对工作区进行**语义化云端备份与版本管理**，让每一次提交都携带业务语义，成为可随时回溯的"时光机"。
 
 > **核心原理**：备份 = Git Commit + Push to GitHub；还原 = 找到目标 Commit → 恢复文件内容。
+> **目标远端**：`https://github.com/zbl91555/openclaw.git`
 
 ## 功能说明与脚本映射
 
