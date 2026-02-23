@@ -1,11 +1,20 @@
-name: git-sync
-description: Workspace Git Backup & Sync
+# Workspace Git Backup & Sync
+# 用法：lobster run git-sync.lobster
+
+name: Workspace Git Backup & Sync
 
 steps:
-  - exec --shell "cd ~/.openclaw/workspace && git status --porcelain"
-  - json
-  - exec --shell "if [ -z \"$(cat)\" ]; then echo '✅ Workspace 配置已是最新'; exit 0; fi"
-  - exec --shell "cd ~/.openclaw/workspace && git add ."
-  - exec --shell "cd ~/.openclaw/workspace && git commit -m 'Lobster sync: $(date +%Y-%m-%d)'"
-  - exec --shell "cd ~/.openclaw/workspace && git push origin main"
-  - exec --shell "echo '✅ Workspace 同步完成！'"
+  - id: check_status
+    run: exec --shell "cd ~/.openclaw/workspace && git status --porcelain"
+  - id: parse_json
+    run: json
+  - id: check_changes
+    run: where "length > 0"
+  - id: add_files
+    run: exec --shell "cd ~/.openclaw/workspace && git add ."
+  - id: commit
+    run: exec --shell "cd ~/.openclaw/workspace && git commit -m 'Lobster auto-sync'"
+  - id: push
+    run: exec --shell "cd ~/.openclaw/workspace && git push origin main"
+  - id: notify
+    run: exec --shell "echo '✅ Workspace 同步完成！'"
