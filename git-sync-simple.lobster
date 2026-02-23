@@ -1,0 +1,1 @@
+exec --shell "cd ~/.openclaw/workspace && git status --porcelain" | json | exec --shell "if [ -z \"$(cat)\" ]; then echo '✅ Workspace 配置已是最新，无需同步'; exit 0; fi" && exec --shell "cd ~/.openclaw/workspace && git add . && git commit -m 'Lobster sync: $(date +%Y-%m-%d %H:%M)' && git push origin main && echo '✅ Workspace 同步完成！'"
