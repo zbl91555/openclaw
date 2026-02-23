@@ -1,0 +1,35 @@
+{
+  "name": "workspace-git-sync",
+  "description": "Workspace Git Backup & Sync",
+  "steps": [
+    {
+      "id": "check_status",
+      "command": "exec --json \"git -C ~/.openclaw/workspace status --porcelain\""
+    },
+    {
+      "id": "has_changes",
+      "command": "where \"length > 0\"",
+      "stdin": "$check_status.stdout"
+    },
+    {
+      "id": "add_files",
+      "command": "exec \"git -C ~/.openclaw/workspace add .\"",
+      "condition": "$has_changes.length > 0"
+    },
+    {
+      "id": "commit",
+      "command": "exec \"git -C ~/.openclaw/workspace commit -m 'Lobster auto-sync'\"",
+      "stdin": "$add_files.stdout"
+    },
+    {
+      "id": "push",
+      "command": "exec \"git -C ~/.openclaw/workspace push origin main\"",
+      "stdin": "$commit.stdout"
+    },
+    {
+      "id": "notify",
+      "command": "exec \"echo '✅ Workspace 同步完成！'\"",
+      "stdin": "$push.stdout"
+    }
+  ]
+}

@@ -1,20 +1,15 @@
+#!/usr/bin/env lobster
 # Workspace Git Backup & Sync
 # 用法：lobster run git-sync.lobster
 
-name: Workspace Git Backup & Sync
+name: workspace-git-sync
+description: 安全地将 OpenClaw Workspace 配置变更备份到 GitHub
 
-steps:
-  - id: check_status
-    run: exec --shell "cd ~/.openclaw/workspace && git status --porcelain"
-  - id: parse_json
-    run: json
-  - id: check_changes
-    run: where "length > 0"
-  - id: add_files
-    run: exec --shell "cd ~/.openclaw/workspace && git add ."
-  - id: commit
-    run: exec --shell "cd ~/.openclaw/workspace && git commit -m 'Lobster auto-sync'"
-  - id: push
-    run: exec --shell "cd ~/.openclaw/workspace && git push origin main"
-  - id: notify
-    run: exec --shell "echo '✅ Workspace 同步完成！'"
+# Lobster 工作流格式说明：
+# https://github.com/openclaw/lobster
+# 
+# 由于 Lobster 还在早期开发中，YAML 格式支持有限
+# 推荐使用命令行方式运行 Lobster 管道
+
+# 等效的命令行：
+# lobster 'git -C ~/.openclaw/workspace status --porcelain | json | where "length > 0" | git -C ~/.openclaw/workspace add . && git -C ~/.openclaw/workspace commit -m "Lobster sync" && git -C ~/.openclaw/workspace push origin main'
