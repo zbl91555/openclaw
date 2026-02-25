@@ -4,7 +4,7 @@
     {
       "id": "d14e193e-8077-4176-9d3c-aa0a7db138b7",
       "agentId": "main",
-      "name": "AI早报推送 - 8AM",
+      "name": "AI早报推送 - 8AM (飞书)",
       "enabled": true,
       "createdAtMs": 1771055250980,
       "updatedAtMs": 1771974107285,
@@ -17,23 +17,78 @@
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "获取 AI 早报，从以下 7 个精选 RSS 源：\n\n1. https://openai.com/news/rss.xml (OpenAI 官方)\n2. https://huggingface.co/blog/feed.xml (Hugging Face)\n3. https://rss.arxiv.org/rss/cs.AI (arXiv AI 论文)\n4. https://www.theverge.com/rss/index.xml (The Verge)\n5. https://www.ithome.com/rss/ (IT 之家)\n6. https://hnrss.org/frontpage (Hacker News)\n7. https://www.ruanyifeng.com/blog/atom.xml (阮一峰周刊)\n\n任务：\n1. 用 web_fetch 获取所有源的内容\n2. 筛选最近 24-48 小时的新闻\n3. 选出 5-7 条最重要的（优先级：大模型发布 > 重大产品 > 行业趋势 > 技术社区热点）\n4. 每条用中文总结：标题 + 核心内容（2-3 句话）\n5. 按以下固定格式排版：\n\n---\n\n## 📰 AI 早报 · [日期]\n\n### 🤖 AI 大模型\n\n**1️⃣ [标题]**\n> [中文总结]\n\n**2️⃣ [标题]**\n> [中文总结]\n\n### 🌍 行业动态\n\n**3️⃣ [标题]**\n> [中文总结]\n\n**4️⃣ [标题]**\n> [中文总结]\n\n### 🖥️ 科技前沿\n\n**5️⃣ [标题]**\n> [中文总结]\n\n**6️⃣ [标题]**\n> [中文总结]\n\n---\n\n### 📊 今日趋势\n\n> [一句话总结当天 AI 行业动态]\n\n---\n\n6. 用 tts 生成语音，channel 用 telegram\n7. 用 message 工具发送到 telegram:6323638373，文本 + 语音\n\n注意：\n- 如果某个源获取失败，跳过继续处理其他源\n- 新闻数量可在 5-7 条之间调整，保持分类结构\n- 分类可根据当天新闻内容灵活调整（AI 大模型/行业动态/科技前沿）",
+        "message": "获取 AI 早报，从以下 7 个精选 RSS 源：\n\n1. https://openai.com/news/rss.xml (OpenAI 官方)\n2. https://huggingface.co/blog/feed.xml (Hugging Face)\n3. https://rss.arxiv.org/rss/cs.AI (arXiv AI 论文)\n4. https://www.theverge.com/rss/index.xml (The Verge)\n5. https://www.ithome.com/rss/ (IT 之家)\n6. https://hnrss.org/frontpage (Hacker News)\n7. https://www.ruanyifeng.com/blog/atom.xml (阮一峰周刊)\n\n任务：\n1. 用 web_fetch 获取所有源的内容\n2. 筛选最近 24-48 小时的新闻\n3. 选出 5-7 条最重要的（优先级：大模型发布 > 重大产品 > 行业趋势 > 技术社区热点）\n4. 每条用中文总结：标题 + 核心内容（2-3 句话）\n5. 按以下固定格式排版：\n\n---\n\n## 📰 AI 早报 · [日期]\n\n### 🤖 AI 大模型\n\n**1️⃣ [标题]**\n> [中文总结]\n\n**2️⃣ [标题]**\n> [中文总结]\n\n### 🌍 行业动态\n\n**3️⃣ [标题]**\n> [中文总结]\n\n### 🖥️ 科技前沿\n\n**5️⃣ [标题]**\n> [中文总结]\n\n---\n\n### 📊 今日趋势\n\n> [一句话总结当天 AI 行业动态]\n\n---\n\n6. 用 message 工具发送到飞书群\n\n注意：\n- 如果某个源获取失败，跳过继续处理其他源\n- 新闻数量可在 5-7 条之间调整，保持分类结构",
         "model": "dashscope/qwen3.5-plus",
         "thinking": "off",
         "timeoutSeconds": 180
       },
       "delivery": {
-        "channel": "telegram",
-        "mode": "announce",
-        "to": "6323638373"
+        "channel": "feishu",
+        "accountId": "main",
+        "mode": "announce"
       },
       "state": {
-        "nextRunAtMs": 1772060400000,
-        "lastRunAtMs": 1771974000021,
-        "lastStatus": "error",
-        "lastDurationMs": 107264,
-        "consecutiveErrors": 3,
-        "lastError": "cron announce delivery failed"
+        "nextRunAtMs": 1772146800000
+      }
+    },
+    {
+      "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+      "agentId": "pdm",
+      "name": "百晓生每日情报巡检 - 9AM",
+      "enabled": true,
+      "createdAtMs": 1771055250980,
+      "updatedAtMs": 1771055250980,
+      "schedule": {
+        "expr": "0 9 * * *",
+        "kind": "cron",
+        "tz": "Asia/Shanghai"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "执行每日情报巡检任务：\n\n1. 使用 exa-web-search-free 搜索以下主题的最新动态（各搜索一次）：\n   - \"AI agent 最新进展 2024\"\n   - \"大模型发布 site:openai.com OR site:anthropic.com OR site:deepmind.com\"\n   - \"AI 产品发布 本周\"\n\n2. 筛选出过去 48 小时内的高质量信息（1-3 条/主题）\n\n3. 将简报写入文件 ~/.openclaw/shared/brief.md，格式：\n\n```\n## 情报简报 · [今日日期 时间]\n\n### 🔥 核心发现\n- [最重要的 1-3 条发现]\n\n### 📈 趋势判断\n[基于今日情报的一句话趋势判断]\n\n### 🔗 原始链接\n- [标题](URL)\n```\n\n4. 在飞书群发送简报内容\n\n注意：结论先行，控制总长度在 500 字以内",
+        "model": "dashscope/qwen3.5-plus",
+        "thinking": "off",
+        "timeoutSeconds": 120
+      },
+      "delivery": {
+        "channel": "feishu",
+        "accountId": "pdm",
+        "mode": "announce"
+      },
+      "state": {
+        "nextRunAtMs": 1772067600000
+      }
+    },
+    {
+      "id": "b2c3d4e5-f6a7-8901-bcde-f12345678901",
+      "agentId": "main",
+      "name": "大管家每日项目日报 - 18:30",
+      "enabled": true,
+      "createdAtMs": 1771055250980,
+      "updatedAtMs": 1771055250980,
+      "schedule": {
+        "expr": "30 18 * * *",
+        "kind": "cron",
+        "tz": "Asia/Shanghai"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "生成今日《项目日报》并推送到飞书群：\n\n1. 读取文件 ~/.openclaw/shared/brief.md 获取今日情报摘要\n\n2. 读取文件 ~/.openclaw/workspace/.learnings/ERRORS.md 获取今日踩坑记录\n\n3. 按以下格式生成日报：\n\n---\n## 📋 项目日报 · [今日日期]\n\n### 🔍 今日情报\n[来自 brief.md 的核心发现，2-3 条]\n\n### 💡 今日亮点\n[团队今天完成的最有价值的事]\n\n### ⚠️ 踩坑记录\n[来自 ERRORS.md 的今日新增错误，如无则写\"今日 0 踩坑 ✅\"]\n\n### 📌 待 Lin 哥决策\n[如有需要确认的事项，列清楚；如无则写\"无需特别决策\"]\n\n### 🎯 明日计划\n- 百晓生：继续情报巡检\n- 代码极客：[如有明日任务则填写]\n- 笔杆子：[如有明日任务则填写]\n\n---\n\n4. 通过飞书发送日报\n\n注意：日报要简洁，总长度不超过 600 字，重点突出实际产出",
+        "model": "dashscope/qwen3.5-plus",
+        "thinking": "off",
+        "timeoutSeconds": 120
+      },
+      "delivery": {
+        "channel": "feishu",
+        "accountId": "main",
+        "mode": "announce"
+      },
+      "state": {
+        "nextRunAtMs": 1772101800000
       }
     }
   ]
