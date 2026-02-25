@@ -232,6 +232,9 @@
         ]
       }
     },
+    "sessions": {
+      "visibility": "all"
+    },
     "deny": [
       "web_search"
     ]
@@ -263,6 +266,73 @@
       "match": {
         "channel": "feishu",
         "accountId": "writer"
+      }
+    },
+    {
+      "agentId": "main",
+      "match": {
+        "channel": "feishu",
+        "peer": {
+          "kind": "user",
+          "id": "ou_53e503da7e10ce48d99c8d1d53ffc14a"
+        }
+      }
+    },
+    {
+      "agentId": "main",
+      "match": {
+        "channel": "feishu",
+        "peer": {
+          "kind": "group",
+          "id": "oc_bd9320a6e6796e64ca0fb0dde1267388"
+        }
+      }
+    },
+    {
+      "agentId": "swe",
+      "match": {
+        "channel": "feishu",
+        "peer": {
+          "kind": "group",
+          "id": "oc_ec9e708fc061854c733ac14a663f4435"
+        }
+      }
+    },
+    {
+      "agentId": "writer",
+      "match": {
+        "channel": "feishu",
+        "peer": {
+          "kind": "group",
+          "id": "oc_a9e9249356ab8e0015b053bd2c0d62e9"
+        }
+      }
+    },
+    {
+      "agentId": "pdm",
+      "match": {
+        "channel": "telegram",
+        "commandPrefix": "/search"
+      }
+    },
+    {
+      "agentId": "swe",
+      "match": {
+        "channel": "telegram",
+        "commandPrefix": "/code"
+      }
+    },
+    {
+      "agentId": "writer",
+      "match": {
+        "channel": "telegram",
+        "commandPrefix": "/write"
+      }
+    },
+    {
+      "agentId": "main",
+      "match": {
+        "channel": "telegram"
       }
     }
   ],
