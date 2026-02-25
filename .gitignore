@@ -7,4 +7,15 @@ sessions/
 tmp/
 browser/
 workspace/
+media/
+delivery-queue/
+completions/
+cron/
+requirements.md
+update-check.json
+exec-approvals.json
+workspaces
+*.bak*
+*.sqlite
+*.log
 
