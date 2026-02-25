@@ -58,7 +58,7 @@ echo "📋 步骤 3: 执行 Git 同步..."
 echo ""
 
 git add .
-git commit -m "Lobster sync: $(date +%Y-%m-%d %H:%M)"
+git commit -m "Lobster sync: $(date "+%Y-%m-%d %H:%M")"
 git push origin main
 
 echo ""
@@ -87,7 +87,7 @@ echo "===================="
 echo "✅ Lobster Git Sync 完成！"
 echo "===================="
 echo ""
-echo "提交信息：Lobster sync: $(date +%Y-%m-%d %H:%M)"
+echo "提交信息：Lobster sync: $(date "+%Y-%m-%d %H:%M")"
 echo "Commit: $(git rev-parse --short HEAD)"
 echo "时间：$(date '+%Y-%m-%d %H:%M:%S')"
 echo ""

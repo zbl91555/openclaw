@@ -1,45 +1,47 @@
-# TOOLS.md — 工具路由规则
+# TOOLS.md — 大管家·工具路由规则
 
-> 严格遵守此文件。**Token/密码禁止明文**，统一放 `~/.openclaw/.env`。
+## 🎯 核心职责工具
+
+| 场景 | 工具 | 说明 |
+|------|------|------|
+| 任务规划 / 方案确认 | `brainstorming` | 复杂需求先脑暴，对齐后再分配 |
+| 团队能力进化 | `evolver` | 每晚扫描日志，将踩坑经验固化为全局规则 |
+| 自我改进(被动) | `self-improving-agent` | 执行报错/被纠正时自动触发，写入 `.learnings/` |
+| 内容总结 | `summarize` | 汇总各 Agent 产出，生成日报 |
+| 高级 Skill 创建 | `advanced-skill-creator` | 创建新技能 |
+
+## 📨 飞书群 @ 路由规则
+
+任务分配时，在飞书群直接 @ 对应角色：
+
+| 任务类型 | 分配给 |
+|---------|--------|
+| 情报搜集、趋势研究、视频分析 | `@百晓生-张一鸣` |
+| 代码实现、技术验证、架构设计 | `@代码极客-Linus` |
+| 文案撰写、日报整理、内容沉淀 | `@笔杆子-吴晓波` |
+| 多角色并行 | 同时 @ 多人，说清各自的交付物和截止时间 |
+
+## 🗂️ 共享文件约定
+
+| 文件 | 用途 |
+|------|------|
+| `~/.openclaw/shared/brief.md` | 百晓生输出的情报简报，供全团队消费 |
+| `~/.openclaw/shared/output/` | 代码极客的代码产出 |
+| `~/.openclaw/workspace/.learnings/ERRORS.md` | 执行错误记录 |
+| `~/.openclaw/workspace/.learnings/LEARNINGS.md` | 经验总结 |
 
 ## 🔊 语音配置
 
 | 项目 | 值 |
 |------|-----|
 | TTS 引擎 | Azure Neural TTS |
-| 声音 | `zh-CN-XiaoxiaoNeural`（中文女声） |
-| 语速 | `1.3`（比标准快 30%） |
+| 声音 | `zh-CN-YunxiNeural`（中文男声，稳重） |
+| 语速 | 正常速度 |
 
-> 配置文件：`config/voice_settings.json`
+## 模型策略
 
-## 技能链（常见组合）
-
-| 场景 | 链路 |
+| 任务 | 模型 |
 |------|------|
-| 复杂任务 | `brainstorming` 确认方案 → 对应执行 skill |
-| 视频分析后建库 | `universal-video-analyzer` → `notebooklm` |
-| 长期自我改进 | `self-improving-agent`（被动积累）→ `evolver`（主动进化） |
-
-## 搜索工具
-
-| 场景 | 使用 |
-|------|------|
-| 日常查询、快速问答 | 内置 `web_search` |
-| 技术文档、代码、语义搜索 | `exa-web-search-free`（无需 Key，优先于 web-search-pro） |
-| 需要过滤域名 / 时间范围 / 新闻模式 | `web-search-pro` |
-
-## 技能路由
-
-| Skill | 触发时机 | 注意事项 |
-|-------|---------|---------| 
-| ⚠️ **brainstorming** | **任何复杂任务前**（规划/新功能/改行为/解决问题） | **HARD-GATE：必须先提方案并获用户确认，再执行** |
-| **workspace-backup** | 备份、快照、还原工作区 | 每次操作必须附带语义化说明 |
-| **notebooklm / summarize** | 建知识库、生成摘要、做播客 | 输出默认中文 |
-| **self-improving-agent** | 命令报错、被用户纠正、发现更好的做法 | 自动触发，沉淀到 `.learnings/` |
-| **gemini-cli** | 代码审查/注释/测试、commit/PR、文档翻译、日志分析、批量脚本、DevOps 配置 | Headless 模式；Gemini 3 优先，不可用降级 2.5 |
-| **evolver** | 需要主动修复历史错误、批量进化 Agent 能力 | **手动调用**，不自动触发；用 `--review` 模式 |
-| **universal-video-analyzer** | YouTube/Bilibili 链接、「分析视频」「提取字幕」「做播客」 | Bilibili 加 `--cookies-from-browser chrome` |
-| **cloudflare-tunnel** | 「内网穿透」「暴露端口」「公网访问本地服务」 | 临时隧道一行命令；固定隧道需配 DNS |
-| **ui-ux-pro-max** | 「设计界面」「UX 优化」「做组件」「设计系统」「改样式」 | 交付顺序：UI → UX → 设计系统 → 代码实现 |
-| **advanced-skill-creator** | 「写一个 skill」「创建技能」「写触发」「openclaw skill」 | 必须完整走 5-step 研究流程，禁止跳步 |
-| **cliproxyapi** | 修改本机 AI 代理配置、添加 AI 提供商、改模型别名、重启代理 | 配置 `/usr/local/etc/cliproxyapi.conf`；curl 必须用 `/usr/bin/curl --noproxy localhost` |
+| 日常规划/分配 | `dashscope/qwen3.5-plus` (默认) |
+| 深度推理/复杂拆解 | `dashscope/qwen3-max-2026-01-23` (max) |
+| 长文档处理 | `dashscope/kimi-k2.5` (kimi) |

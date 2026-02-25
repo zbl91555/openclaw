@@ -130,6 +130,7 @@
 | 2026-02-23 | 创建 NotebookLM 统一知识库 | 合并 8 个旧笔记本，整合 190 个 URL |
 | 2026-02-23 | 创建技术分享文章 | 基础入门 + 进阶指南，共 34,500 字 |
 | 2026-02-23 | 配置并发控制 | maxConcurrent: 4, subagents: 8 |
+| 2026-02-24 | NotebookLM 播客生成实战 | 首次生成两个播客（个人分享 + 统一知识库），验证子 Agent 监控模式 |
 
 ---
 
@@ -163,6 +164,15 @@ notebooklm list
 
 # 提问
 notebooklm ask "问题" -n <notebook-id>
+
+# 生成播客
+notebooklm generate audio "描述" -n <notebook-id> --language zh_Hans
+
+# 等待播客完成（子 Agent 后台监控）
+notebooklm artifact wait <artifact-id> -n <notebook-id> --timeout 1800
+
+# 下载播客
+notebooklm download audio ./output.mp3 -a <artifact-id> -n <notebook-id>
 ```
 
 ---
@@ -175,4 +185,96 @@ notebooklm ask "问题" -n <notebook-id>
 
 ---
 
-*最后同步：2026-02-23*
+## [LESSON] 任务监控方案选择 ⚠️
+
+**2026-02-24 播客生成实战教训**：
+
+| 场景 | ✅ 正确方案 | ❌ 错误方案 | 原因 |
+|------|-----------|-----------|------|
+| **长时间任务监控**（>10 分钟） | 子 Agent 后台 + `artifact wait` | 心跳 | 心跳间隔 30 分钟，太慢 |
+| **定期检查**（邮箱/日历） | 心跳（30 分钟一次） | - | 合适的时间粒度 |
+| **精确时间任务**（9:00 AM 提醒） | Cron | 心跳 | 心跳时间不精确 |
+| **即时通知**（任务完成） | 子 Agent + `openclaw system event` | 心跳 | 需要 push-based 通知 |
+
+**播客生成最佳实践**：
+```bash
+# 1. 生成播客
+notebooklm generate audio "描述" -n <id> --json
+
+# 2. 子 Agent 后台监控（非阻塞）
+Task(prompt="notebooklm artifact wait <id> -n <notebook-id> --timeout 1800 && notebooklm download audio ./podcast.mp3 -a <id> -n <notebook-id>")
+
+# 3. 完成后自动通知
+# 子 Agent 内添加：openclaw system event --text "播客完成" --mode now
+```
+
+**Telegram 文件限制**：最大 16MB，大文件需云存储或本地路径分享。
+
+---
+
+## [LESSON] TTS 语音格式规范 ⚠️
+
+**2026-02-25 教训**：发送 TTS 语音时，文本中混入了 markdown 格式（**加粗**）和 emoji（🦞☕️），导致语音引擎直接读出这些字符，听起来很怪。
+
+**正确做法**：
+- TTS 文本必须是纯文本
+- 不使用任何 markdown 格式（**加粗**、`代码`、- 列表等）
+- 不使用 emoji 表情
+- 数字、英文、专有名词用中文口吻表达（如 "memu 点 bot"、"1 万 5 千星"）
+
+**错误示例**：
+```
+**第一个，memU** —— 记忆框架，1 万 5 千星 🦞
+```
+
+**正确示例**：
+```
+第一个，memU，记忆框架，1 万 5 千星。
+```
+
+**执行标准**：以后所有 TTS 语音发送前，必须检查文本是否为纯文本，无格式、无 emoji。
+
+---
+
+## [PREFERENCE] 总结输出格式 ⚠️
+
+**2026-02-25 新增**：GitHub Trending、资讯类总结、调研报告等长内容，**语音 + 文字一起发**。
+
+**适用场景**：
+- GitHub Trending 总结
+- 社区案例调研
+- 技术资讯简报
+- 项目分析报告
+
+**执行标准**：
+1. 先发 TTS 语音（纯文本，无格式无 emoji）
+2. 紧接着发文字版总结（可带 markdown 和 emoji）
+
+**例外**：用户明确要求只要语音或只要文字时，按用户要求。
+
+---
+
+## [LESSON] 子 Agent 超时排查 ⚠️
+
+**2026-02-25 问题**：子 agent 分析 stitch-mcp 源码时超时（5 分钟限制）。
+
+**根因**：
+1. 子 agent 启动时检测到网关未响应，尝试自动启动网关
+2. 网关实际已在运行（端口被占用），但子 agent 无法检测
+3. 反复重试启动网关约 10 次（每次 10 秒），占用 100 秒
+4. 加上源码分析时间，总计超过 5 分钟
+
+**解决方案**：
+1. **增加超时时间**：源码分析类任务 `timeoutSeconds: 600`（10 分钟）
+2. **任务分解**：大任务拆成多个小任务（克隆→分析 A→分析 B→汇总）
+3. **预检查网关**：spawn 前先 `openclaw gateway status`
+
+**最佳实践**：
+- 简单任务（问答/总结）：300 秒
+- 中等任务（单文件分析）：400 秒
+- 复杂任务（多文件源码分析）：600 秒+
+- 超复杂任务（跨项目调研）：任务分解 + 多子 agent
+
+---
+
+*最后同步：2026-02-25*
