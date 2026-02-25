@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "socket": {
+    "path": "/Users/mudandan/.openclaw/exec-approvals.sock",
+    "token": "cXmgEsuz-8r6jSES8HyW5NmLWg7wFYG_"
+  },
+  "defaults": {},
+  "agents": {}
+}

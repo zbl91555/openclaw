@@ -1,0 +1,10 @@
+node_modules/
+logs/
+.cache
+downloads/
+canvas/
+sessions/
+tmp/
+browser/
+workspace/
+

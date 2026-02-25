@@ -1,0 +1,167 @@
+{
+  "d011e0d6736f6a36cc9c54e14b095e970c9bd61727cb379b479d1e4c2f321946": {
+    "deviceId": "d011e0d6736f6a36cc9c54e14b095e970c9bd61727cb379b479d1e4c2f321946",
+    "publicKey": "XCHCY-h8-z7d-i8g3TpuArJylMRKbvo2J7OCzxvPn9A",
+    "platform": "darwin",
+    "clientId": "cli",
+    "clientMode": "cli",
+    "role": "operator",
+    "roles": [
+      "operator"
+    ],
+    "scopes": [
+      "operator.admin",
+      "operator.approvals",
+      "operator.pairing",
+      "operator.read"
+    ],
+    "tokens": {
+      "operator": {
+        "token": "6499b705f5df4fd695af3d09b48c6f48",
+        "role": "operator",
+        "scopes": [
+          "operator.admin",
+          "operator.approvals",
+          "operator.pairing"
+        ],
+        "createdAtMs": 1770918496546,
+        "lastUsedAtMs": 1771769083573
+      }
+    },
+    "createdAtMs": 1770918496546,
+    "approvedAtMs": 1770918496546
+  },
+  "19fdb84ed41ee1cfb01f739dbc05796e3b94ceb0c47009cf0061a268f780572e": {
+    "deviceId": "19fdb84ed41ee1cfb01f739dbc05796e3b94ceb0c47009cf0061a268f780572e",
+    "publicKey": "FBPvQvBRxslgNg7FLtMXFTBoR1RHrso-Xfph2yhYibI",
+    "platform": "MacIntel",
+    "clientId": "openclaw-control-ui",
+    "clientMode": "webchat",
+    "role": "operator",
+    "roles": [
+      "operator"
+    ],
+    "scopes": [
+      "operator.admin",
+      "operator.approvals",
+      "operator.pairing"
+    ],
+    "tokens": {
+      "operator": {
+        "token": "030bd687a25544f2be1e7f8f3116ee37",
+        "role": "operator",
+        "scopes": [
+          "operator.admin",
+          "operator.approvals",
+          "operator.pairing"
+        ],
+        "createdAtMs": 1770918509109,
+        "lastUsedAtMs": 1771190085564
+      }
+    },
+    "createdAtMs": 1770918509109,
+    "approvedAtMs": 1770918509109
+  },
+  "0422ae954fa75819876790cd6d7c9bf9fa2bd5b72b800fc13bc5dd4a8d6d2e84": {
+    "deviceId": "0422ae954fa75819876790cd6d7c9bf9fa2bd5b72b800fc13bc5dd4a8d6d2e84",
+    "publicKey": "GwmZqWkbyAuQr7VSDAfKO61bF1IL9ykCvFTpjb61FYg",
+    "platform": "MacIntel",
+    "clientId": "openclaw-control-ui",
+    "clientMode": "webchat",
+    "role": "operator",
+    "roles": [
+      "operator"
+    ],
+    "scopes": [
+      "operator.admin",
+      "operator.approvals",
+      "operator.pairing"
+    ],
+    "tokens": {
+      "operator": {
+        "token": "11124f277d5842ec919b0fa256e0a49f",
+        "role": "operator",
+        "scopes": [
+          "operator.admin",
+          "operator.approvals",
+          "operator.pairing"
+        ],
+        "createdAtMs": 1771715105052,
+        "lastUsedAtMs": 1772057540599
+      }
+    },
+    "createdAtMs": 1771715105052,
+    "approvedAtMs": 1771715105052
+  },
+  "469eb30b00f039bd5e3fc2181d0ca0d100605814b596ff0ca19e52b075a5dea5": {
+    "deviceId": "469eb30b00f039bd5e3fc2181d0ca0d100605814b596ff0ca19e52b075a5dea5",
+    "publicKey": "zUg-6lX2fXvocDCF1VVK1Oc86pktjVX1ihzxdOtOpAk",
+    "platform": "MacIntel",
+    "clientId": "openclaw-control-ui",
+    "clientMode": "webchat",
+    "role": "operator",
+    "roles": [
+      "operator"
+    ],
+    "scopes": [
+      "operator.admin",
+      "operator.approvals",
+      "operator.pairing"
+    ],
+    "approvedScopes": [
+      "operator.admin",
+      "operator.approvals",
+      "operator.pairing"
+    ],
+    "tokens": {
+      "operator": {
+        "token": "t5mRTFzKOrDPl5UHEHCnDpH9GxJW4A_lJqKvAOSkzEA",
+        "role": "operator",
+        "scopes": [
+          "operator.admin",
+          "operator.approvals",
+          "operator.pairing"
+        ],
+        "createdAtMs": 1771770060177,
+        "lastUsedAtMs": 1771771173613
+      }
+    },
+    "createdAtMs": 1771770060177,
+    "approvedAtMs": 1771770060177
+  },
+  "a24f9948e8de53a2376c23c4d444e3a1f91454a1a5425123d328d33070e501d2": {
+    "deviceId": "a24f9948e8de53a2376c23c4d444e3a1f91454a1a5425123d328d33070e501d2",
+    "publicKey": "aTXaZ72SgMWC246dauYOadEOcH6UwAmiK-_iG2IuRlI",
+    "platform": "MacIntel",
+    "clientId": "openclaw-control-ui",
+    "clientMode": "webchat",
+    "role": "operator",
+    "roles": [
+      "operator"
+    ],
+    "scopes": [
+      "operator.admin",
+      "operator.approvals",
+      "operator.pairing"
+    ],
+    "approvedScopes": [
+      "operator.admin",
+      "operator.approvals",
+      "operator.pairing"
+    ],
+    "tokens": {
+      "operator": {
+        "token": "Mfti7fnvBp-pE5Tkv_zwcs__5z2IlxjzeDvzuWn95Uk",
+        "role": "operator",
+        "scopes": [
+          "operator.admin",
+          "operator.approvals",
+          "operator.pairing"
+        ],
+        "createdAtMs": 1771770121852
+      }
+    },
+    "createdAtMs": 1771770121852,
+    "approvedAtMs": 1771770121852
+  }
+}

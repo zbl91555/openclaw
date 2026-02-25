@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "jobs": [
+    {
+      "id": "d14e193e-8077-4176-9d3c-aa0a7db138b7",
+      "agentId": "main",
+      "name": "AI早报推送 - 8AM",
+      "enabled": true,
+      "createdAtMs": 1771055250980,
+      "updatedAtMs": 1771974107285,
+      "schedule": {
+        "expr": "0 7 * * *",
+        "kind": "cron",
+        "tz": "Asia/Shanghai"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "获取 AI 早报，从以下 7 个精选 RSS 源：\n\n1. https://openai.com/news/rss.xml (OpenAI 官方)\n2. https://huggingface.co/blog/feed.xml (Hugging Face)\n3. https://rss.arxiv.org/rss/cs.AI (arXiv AI 论文)\n4. https://www.theverge.com/rss/index.xml (The Verge)\n5. https://www.ithome.com/rss/ (IT 之家)\n6. https://hnrss.org/frontpage (Hacker News)\n7. https://www.ruanyifeng.com/blog/atom.xml (阮一峰周刊)\n\n任务：\n1. 用 web_fetch 获取所有源的内容\n2. 筛选最近 24-48 小时的新闻\n3. 选出 5-7 条最重要的（优先级：大模型发布 > 重大产品 > 行业趋势 > 技术社区热点）\n4. 每条用中文总结：标题 + 核心内容（2-3 句话）\n5. 按以下固定格式排版：\n\n---\n\n## 📰 AI 早报 · [日期]\n\n### 🤖 AI 大模型\n\n**1️⃣ [标题]**\n> [中文总结]\n\n**2️⃣ [标题]**\n> [中文总结]\n\n### 🌍 行业动态\n\n**3️⃣ [标题]**\n> [中文总结]\n\n**4️⃣ [标题]**\n> [中文总结]\n\n### 🖥️ 科技前沿\n\n**5️⃣ [标题]**\n> [中文总结]\n\n**6️⃣ [标题]**\n> [中文总结]\n\n---\n\n### 📊 今日趋势\n\n> [一句话总结当天 AI 行业动态]\n\n---\n\n6. 用 tts 生成语音，channel 用 telegram\n7. 用 message 工具发送到 telegram:6323638373，文本 + 语音\n\n注意：\n- 如果某个源获取失败，跳过继续处理其他源\n- 新闻数量可在 5-7 条之间调整，保持分类结构\n- 分类可根据当天新闻内容灵活调整（AI 大模型/行业动态/科技前沿）",
+        "model": "dashscope/qwen3.5-plus",
+        "thinking": "off",
+        "timeoutSeconds": 180
+      },
+      "delivery": {
+        "channel": "telegram",
+        "mode": "announce",
+        "to": "6323638373"
+      },
+      "state": {
+        "nextRunAtMs": 1772060400000,
+        "lastRunAtMs": 1771974000021,
+        "lastStatus": "error",
+        "lastDurationMs": 107264,
+        "consecutiveErrors": 3,
+        "lastError": "cron announce delivery failed"
+      }
+    }
+  ]
+}
