@@ -278,3 +278,13 @@ Task(prompt="notebooklm artifact wait <id> -n <notebook-id> --timeout 1800 && no
 ---
 
 *最后同步：2026-02-25*
+
+### agents_list 工具语义 ⚠️
+
+**2026-02-26 新增**：`agents_list` 工具返回的是当前会话可 target 的 Agent allowlist（用于 `sessions_spawn`），不是已配置的 Agent 列表。
+
+**正确做法**：
+- 查询 Agent 配置状态，直接用 `openclaw agents list` 命令
+- 不要依赖 `agents_list` 工具判断 Agent 是否配置
+- 工具返回的信息可能是片面的，需要多角度验证
+
