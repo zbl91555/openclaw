@@ -1,27 +1,47 @@
+# Dependency directories
 node_modules/
+
+# Logs and databases
 logs/
+*.log
+*.sqlite
+
+# Temporaries and caches
 .cache
+tmp/
 downloads/
+
+# Intelligent core running states
 canvas/
 sessions/
-tmp/
 browser/
-workspace/
 media/
 delivery-queue/
 completions/
 cron/
-requirements.md
-update-check.json
+memory/
+
+# Security and Credentials
+.env
+credentials/
 exec-approvals.json
-workspaces
+
+# Backups and generated configs
 *.bak*
-*.sqlite
-*.log
 *backup*
 backups/
+update-check.json
+requirements.md
+
+# Workspaces (Assuming you sync 'workspace/' locally elsewhere, or it's a submodule)
+workspace/
+workspaces
+workspace-writer/
+
+# Sub-modules outputs
 debug-tts/
 shared/output/
 telegram/*.txt
+
+# OS generated files
 .DS_Store
-workspace-writer/
