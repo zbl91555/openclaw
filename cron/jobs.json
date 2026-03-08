@@ -7,7 +7,7 @@
       "name": "AI早报推送 - 8AM (飞书)",
       "enabled": true,
       "createdAtMs": 1771055250980,
-      "updatedAtMs": 1771974107285,
+      "updatedAtMs": 1772924580031,
       "schedule": {
         "expr": "0 7 * * *",
         "kind": "cron",
@@ -28,37 +28,14 @@
         "mode": "announce"
       },
       "state": {
-        "nextRunAtMs": 1772146800000
-      }
-    },
-    {
-      "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
-      "agentId": "pdm",
-      "name": "百晓生每日情报巡检 - 9AM",
-      "enabled": true,
-      "createdAtMs": 1771055250980,
-      "updatedAtMs": 1771055250980,
-      "schedule": {
-        "expr": "0 9 * * *",
-        "kind": "cron",
-        "tz": "Asia/Shanghai"
-      },
-      "sessionTarget": "isolated",
-      "wakeMode": "now",
-      "payload": {
-        "kind": "agentTurn",
-        "message": "执行每日情报巡检任务：\n\n1. 使用 exa-web-search-free 搜索以下主题的最新动态（各搜索一次）：\n   - \"AI agent 最新进展 2024\"\n   - \"大模型发布 site:openai.com OR site:anthropic.com OR site:deepmind.com\"\n   - \"AI 产品发布 本周\"\n\n2. 筛选出过去 48 小时内的高质量信息（1-3 条/主题）\n\n3. 将简报写入文件 ~/.openclaw/shared/brief.md，格式：\n\n```\n## 情报简报 · [今日日期 时间]\n\n### 🔥 核心发现\n- [最重要的 1-3 条发现]\n\n### 📈 趋势判断\n[基于今日情报的一句话趋势判断]\n\n### 🔗 原始链接\n- [标题](URL)\n```\n\n4. 在飞书群发送简报内容\n\n注意：结论先行，控制总长度在 500 字以内",
-        "model": "dashscope/qwen3.5-plus",
-        "thinking": "off",
-        "timeoutSeconds": 120
-      },
-      "delivery": {
-        "channel": "feishu",
-        "accountId": "pdm",
-        "mode": "announce"
-      },
-      "state": {
-        "nextRunAtMs": 1772067600000
+        "nextRunAtMs": 1773010800000,
+        "lastRunAtMs": 1772924400009,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 180022,
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 10,
+        "lastError": "cron: job execution timed out"
       }
     },
     {
@@ -67,7 +44,7 @@
       "name": "大管家每日项目日报 - 18:30",
       "enabled": true,
       "createdAtMs": 1771055250980,
-      "updatedAtMs": 1771055250980,
+      "updatedAtMs": 1772879424531,
       "schedule": {
         "expr": "30 18 * * *",
         "kind": "cron",
@@ -88,7 +65,118 @@
         "mode": "announce"
       },
       "state": {
-        "nextRunAtMs": 1772101800000
+        "nextRunAtMs": 1772965800000,
+        "lastRunAtMs": 1772879400006,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 24525,
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 4,
+        "lastError": "Delivering to Feishu requires target <chatId|user:openId|chat:chatId>"
+      }
+    },
+    {
+      "id": "3e957901-84d4-4f5f-900f-c3cb922798b9",
+      "agentId": "main",
+      "name": "daily-report",
+      "description": "每天中午 12 点自动生成团队工作日报",
+      "enabled": true,
+      "createdAtMs": 1772072457016,
+      "updatedAtMs": 1772856051481,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 12 * * *",
+        "tz": "Asia/Shanghai"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "生成并发送 AI 团队日报到飞书群和 Telegram 双渠道"
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "feishu"
+      },
+      "state": {
+        "nextRunAtMs": 1772942400000,
+        "lastRunAtMs": 1772856000009,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 51472,
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 9,
+        "lastError": "No delivery target resolved for channel \"feishu\". Set delivery.to."
+      }
+    },
+    {
+      "id": "ecfc502b-0a6a-47f4-b777-2d38af1104cb",
+      "agentId": "pdm",
+      "name": "百晓生每日情报巡检",
+      "description": "每天早上 9 点百晓生自动搜集情报",
+      "enabled": true,
+      "createdAtMs": 1772072663685,
+      "updatedAtMs": 1772845283090,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 9 * * *",
+        "tz": "Asia/Shanghai"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "搜集今日热点新闻、GitHub Trending、技术资讯，生成情报简报。**重要：使用 exec 工具写入文件**，命令格式：`cat > ~/.openclaw/shared/brief.md << 'EOF'...EOF`，不可用 write 工具（会被 workspace 限制拦截）。",
+        "timeoutSeconds": 300
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "feishu",
+        "to": "chat:oc_f47b52a7056d01d66c9bcfda6a076a6b"
+      },
+      "state": {
+        "nextRunAtMs": 1772931600000,
+        "lastRunAtMs": 1772845200008,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 83082,
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 9,
+        "lastError": "cron announce delivery failed"
+      }
+    },
+    {
+      "id": "752d00a2-ed7d-4e5e-b0ef-a89cda3dc360",
+      "agentId": "main",
+      "name": "任务进度自动播报-5m",
+      "enabled": true,
+      "createdAtMs": 1772122982003,
+      "updatedAtMs": 1772930893353,
+      "schedule": {
+        "kind": "every",
+        "everyMs": 300000,
+        "anchorMs": 1772122982003
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "请使用 exec 工具执行：python3 ~/.openclaw/workspace/scripts/auto-progress-broadcast.py --target oc_f47b52a7056d01d66c9bcfda6a076a6b --max-tasks 5 --stale-minutes 180 --min-interval-seconds 240。要求：命中边界case时静默退出，不得重复发。",
+        "timeoutSeconds": 120
+      },
+      "delivery": {
+        "mode": "none",
+        "channel": "last"
+      },
+      "state": {
+        "nextRunAtMs": 1772931184086,
+        "lastRunAtMs": 1772930884086,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 9267,
+        "lastDeliveryStatus": "not-delivered",
+        "consecutiveErrors": 0,
+        "lastDelivered": false
       }
     }
   ]

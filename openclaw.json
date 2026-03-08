@@ -1,15 +1,15 @@
 {
   "meta": {
-    "lastTouchedVersion": "2026.2.24",
-    "lastTouchedAt": "2026-02-25T22:11:24.795Z"
+    "lastTouchedVersion": "2026.3.2",
+    "lastTouchedAt": "2026-03-07T11:36:58Z"
   },
   "env": {
     "TAVILY_API_KEY": "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",
     "PATH": "/Users/mudandan/.nvm/versions/node/v22.22.0/bin:/Users/mudandan/.local/bin:/usr/local/bin:/usr/bin:/bin"
   },
   "wizard": {
-    "lastRunAt": "2026-02-25T22:11:24.778Z",
-    "lastRunVersion": "2026.2.24",
+    "lastRunAt": "2026-03-07T04:45:04.406Z",
+    "lastRunVersion": "2026.3.2",
     "lastRunCommand": "doctor",
     "lastRunMode": "local"
   },
@@ -28,9 +28,6 @@
         "color": "#4285F4"
       }
     }
-  },
-  "session": {
-    "dmScope": "per-peer"
   },
   "auth": {
     "profiles": {
@@ -122,7 +119,7 @@
   "agents": {
     "defaults": {
       "model": {
-        "primary": "dashscope/qwen3.5-plus"
+        "primary": "dashscope/kimi-k2.5"
       },
       "models": {
         "dashscope/qwen3.5-plus": {
@@ -146,9 +143,9 @@
       "heartbeat": {
         "every": "30m"
       },
-      "maxConcurrent": 4,
+      "maxConcurrent": 2,
       "subagents": {
-        "maxConcurrent": 8
+        "maxConcurrent": 3
       }
     },
     "list": [
@@ -168,53 +165,47 @@
         }
       },
       {
-        "id": "pdm",
-        "name": "百晓生-张一鸣",
-        "workspace": "/Users/mudandan/.openclaw/workspace/pdm",
-        "skills": [
-          "exa-web-search-free",
-          "web-search-pro",
-          "notebooklm",
-          "universal-video-analyzer",
-          "brainstorming"
-        ],
-        "identity": {
-          "name": "百晓生-张一鸣",
-          "emoji": "🔍"
-        }
-      },
-      {
         "id": "swe",
-        "name": "代码极客-Linus",
+        "name": "工程负责人-Linus",
         "workspace": "/Users/mudandan/.openclaw/workspace/swe",
         "skills": [
           "cliproxyapi",
           "gemini-cli",
           "cloudflare-tunnel",
           "find",
-          "ui-ux-pro-max"
+          "ui-ux-pro-max",
+          "codex-review",
+          "codex"
         ],
         "identity": {
-          "name": "代码极客-Linus",
+          "name": "工程负责人-Linus",
           "emoji": "💻"
         }
       },
       {
-        "id": "writer",
-        "name": "笔杆子-吴晓波",
-        "workspace": "/Users/mudandan/.openclaw/workspace/writer",
+        "id": "research-writer",
+        "name": "百晓生-张一鸣",
+        "workspace": "/Users/mudandan/.openclaw/workspace/research-writer",
         "skills": [
+          "exa-web-search-free",
+          "web-search-pro",
           "notebooklm",
-          "summarize"
+          "universal-video-analyzer",
+          "summarize",
+          "brainstorming",
+          "codex-review"
         ],
         "identity": {
-          "name": "笔杆子-吴晓波",
-          "emoji": "✍️"
+          "name": "百晓生-张一鸣",
+          "emoji": "🔍"
         }
       }
     ]
   },
   "tools": {
+    "deny": [
+      "web_search"
+    ],
     "media": {
       "audio": {
         "enabled": true,
@@ -234,10 +225,7 @@
     },
     "sessions": {
       "visibility": "all"
-    },
-    "deny": [
-      "web_search"
-    ]
+    }
   },
   "bindings": [
     {
@@ -248,13 +236,6 @@
       }
     },
     {
-      "agentId": "pdm",
-      "match": {
-        "channel": "feishu",
-        "accountId": "pdm"
-      }
-    },
-    {
       "agentId": "swe",
       "match": {
         "channel": "feishu",
@@ -262,71 +243,10 @@
       }
     },
     {
-      "agentId": "writer",
+      "agentId": "research-writer",
       "match": {
         "channel": "feishu",
-        "accountId": "writer"
-      }
-    },
-    {
-      "agentId": "main",
-      "match": {
-        "channel": "feishu",
-        "peer": {
-          "kind": "user",
-          "id": "ou_53e503da7e10ce48d99c8d1d53ffc14a"
-        }
-      }
-    },
-    {
-      "agentId": "main",
-      "match": {
-        "channel": "feishu",
-        "peer": {
-          "kind": "group",
-          "id": "oc_bd9320a6e6796e64ca0fb0dde1267388"
-        }
-      }
-    },
-    {
-      "agentId": "swe",
-      "match": {
-        "channel": "feishu",
-        "peer": {
-          "kind": "group",
-          "id": "oc_ec9e708fc061854c733ac14a663f4435"
-        }
-      }
-    },
-    {
-      "agentId": "writer",
-      "match": {
-        "channel": "feishu",
-        "peer": {
-          "kind": "group",
-          "id": "oc_a9e9249356ab8e0015b053bd2c0d62e9"
-        }
-      }
-    },
-    {
-      "agentId": "pdm",
-      "match": {
-        "channel": "telegram",
-        "commandPrefix": "/search"
-      }
-    },
-    {
-      "agentId": "swe",
-      "match": {
-        "channel": "telegram",
-        "commandPrefix": "/code"
-      }
-    },
-    {
-      "agentId": "writer",
-      "match": {
-        "channel": "telegram",
-        "commandPrefix": "/write"
+        "accountId": "research-writer"
       }
     },
     {
@@ -343,9 +263,9 @@
       "provider": "edge",
       "edge": {
         "enabled": true,
-        "voice": "zh-CN-XiaoxiaoNeural",
+        "voice": "zh-CN-XiaoyiNeural",
         "lang": "zh-CN",
-        "outputFormat": "audio-24khz-48kbitrate-mono-mp3"
+        "outputFormat": "audio-24khz-96kbitrate-mono-mp3"
       }
     }
   },
@@ -354,6 +274,9 @@
     "nativeSkills": "auto",
     "restart": true,
     "ownerDisplay": "raw"
+  },
+  "session": {
+    "dmScope": "per-peer"
   },
   "hooks": {
     "internal": {
@@ -408,11 +331,21 @@
       "enabled": true,
       "domain": "feishu",
       "connectionMode": "websocket",
-      "dmPolicy": "open",
-      "groupPolicy": "open",
       "requireMention": true,
       "renderMode": "card",
       "mediaMaxMb": 30,
+      "capabilities": {
+        "inlineButtons": "all",
+        "audio": true
+      },
+      "groups": {
+        "oc_f47b52a7056d01d66c9bcfda6a076a6b": {
+          "requireMention": false
+        },
+        "oc_8c38373b1f9cd42c1e8196b44eeeaab7": {
+          "requireMention": true
+        }
+      },
       "dynamicAgentCreation": {
         "enabled": true,
         "workspaceTemplate": "~/workspaces/feishu-{agentId}",
@@ -428,28 +361,32 @@
           "appSecret": "UYHKRiK5TaJtTYLHUc6KAbTlKB7qhQb3",
           "connectionMode": "websocket"
         },
-        "pdm": {
-          "enabled": true,
-          "appId": "cli_a915e01fcbb89cd4",
-          "appSecret": "E47kKPaxUeHyaq1aOJVImfvmCEdu6p2q",
-          "connectionMode": "websocket"
-        },
         "swe": {
           "enabled": true,
           "appId": "cli_a915e08562b9dcb5",
           "appSecret": "ykvhJvssJgVJHWSXgyMWkg8eXmcgvfW0",
           "connectionMode": "websocket"
         },
-        "writer": {
+        "research-writer": {
           "enabled": true,
-          "appId": "cli_a915e1384f389ced",
-          "appSecret": "D1yd8OfXAjHuJTZYNauPxbybvkWplUyK",
+          "appId": "cli_a915e01fcbb89cd4",
+          "appSecret": "E47kKPaxUeHyaq1aOJVImfvmCEdu6p2q",
           "connectionMode": "websocket"
+        },
+        "default": {
+          "dmPolicy": "pairing",
+          "groupPolicy": "open"
         }
       },
-      "allowFrom": [
-        "*"
-      ]
+      "footer": {
+        "elapsed": true,
+        "status": true
+      },
+      "replyMode": {
+        "group": "streaming",
+        "direct": "streaming"
+      },
+      "streaming": true
     }
   },
   "gateway": {
@@ -489,14 +426,30 @@
     }
   },
   "plugins": {
+    "allow": [
+      "telegram",
+      "feishu-openclaw-plugin"
+    ],
     "entries": {
       "telegram": {
         "enabled": true
       },
-      "feishu": {
+      "feishu-openclaw-plugin": {
         "enabled": true
       }
     },
-    "installs": {}
+    "installs": {
+      "feishu-openclaw-plugin": {
+        "source": "npm",
+        "spec": "feishu-plugin-onboard",
+        "installPath": "/Users/mudandan/.openclaw/extensions/feishu-openclaw-plugin",
+        "version": "2026.3.7-beta.1",
+        "resolvedName": "feishu-plugin-onboard",
+        "resolvedVersion": "2026.3.7-beta.1",
+        "resolvedSpec": "feishu-plugin-onboard@2026.3.7-beta.1",
+        "resolvedAt": "2026-03-07T00:00:00.000Z",
+        "installedAt": "2026-03-07T00:00:00.000Z"
+      }
+    }
   }
 }

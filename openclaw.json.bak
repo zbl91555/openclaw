@@ -1,15 +1,15 @@
 {
   "meta": {
-    "lastTouchedVersion": "2026.2.24",
-    "lastTouchedAt": "2026-02-25T22:10:48.949Z"
+    "lastTouchedVersion": "2026.3.2",
+    "lastTouchedAt": "2026-03-07T08:28:22.001Z"
   },
   "env": {
     "TAVILY_API_KEY": "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",
-    "PATH": "/Users/mudandan/.local/bin:/usr/local/bin:/usr/bin:/bin"
+    "PATH": "/Users/mudandan/.nvm/versions/node/v22.22.0/bin:/Users/mudandan/.local/bin:/usr/local/bin:/usr/bin:/bin"
   },
   "wizard": {
-    "lastRunAt": "2026-02-22T14:00:13.815Z",
-    "lastRunVersion": "2026.2.9",
+    "lastRunAt": "2026-03-07T04:45:04.406Z",
+    "lastRunVersion": "2026.3.2",
     "lastRunCommand": "doctor",
     "lastRunMode": "local"
   },
@@ -119,7 +119,7 @@
   "agents": {
     "defaults": {
       "model": {
-        "primary": "dashscope/qwen3.5-plus"
+        "primary": "dashscope/kimi-k2.5"
       },
       "models": {
         "dashscope/qwen3.5-plus": {
@@ -173,7 +173,8 @@
           "web-search-pro",
           "notebooklm",
           "universal-video-analyzer",
-          "brainstorming"
+          "brainstorming",
+          "codex-review"
         ],
         "identity": {
           "name": "百晓生-张一鸣",
@@ -189,7 +190,8 @@
           "gemini-cli",
           "cloudflare-tunnel",
           "find",
-          "ui-ux-pro-max"
+          "ui-ux-pro-max",
+          "codex-review"
         ],
         "identity": {
           "name": "代码极客-Linus",
@@ -202,7 +204,8 @@
         "workspace": "/Users/mudandan/.openclaw/workspace/writer",
         "skills": [
           "notebooklm",
-          "summarize"
+          "summarize",
+          "codex-review"
         ],
         "identity": {
           "name": "笔杆子-吴晓波",
@@ -214,7 +217,27 @@
   "tools": {
     "deny": [
       "web_search"
-    ]
+    ],
+    "media": {
+      "audio": {
+        "enabled": true,
+        "maxBytes": 20971520,
+        "models": [
+          {
+            "type": "cli",
+            "command": "gemini",
+            "args": [
+              "-p",
+              "transcribe this audio to text: {{MediaPath}}"
+            ],
+            "timeoutSeconds": 60
+          }
+        ]
+      }
+    },
+    "sessions": {
+      "visibility": "all"
+    }
   },
   "bindings": [
     {
@@ -244,6 +267,12 @@
         "channel": "feishu",
         "accountId": "writer"
       }
+    },
+    {
+      "agentId": "main",
+      "match": {
+        "channel": "telegram"
+      }
     }
   ],
   "messages": {
@@ -253,9 +282,9 @@
       "provider": "edge",
       "edge": {
         "enabled": true,
-        "voice": "zh-CN-XiaoxiaoNeural",
+        "voice": "zh-CN-XiaoyiNeural",
         "lang": "zh-CN",
-        "outputFormat": "audio-24khz-48kbitrate-mono-mp3"
+        "outputFormat": "audio-24khz-96kbitrate-mono-mp3"
       }
     }
   },
@@ -264,6 +293,9 @@
     "nativeSkills": "auto",
     "restart": true,
     "ownerDisplay": "raw"
+  },
+  "session": {
+    "dmScope": "per-peer"
   },
   "hooks": {
     "internal": {
@@ -318,10 +350,27 @@
       "enabled": true,
       "domain": "feishu",
       "connectionMode": "websocket",
-      "dmPolicy": "open",
-      "groupPolicy": "open",
       "requireMention": true,
       "renderMode": "card",
+      "mediaMaxMb": 30,
+      "capabilities": {
+        "inlineButtons": "all",
+        "audio": true
+      },
+      "groups": {
+        "oc_f47b52a7056d01d66c9bcfda6a076a6b": {
+          "requireMention": false
+        },
+        "oc_8c38373b1f9cd42c1e8196b44eeeaab7": {
+          "requireMention": true
+        }
+      },
+      "dynamicAgentCreation": {
+        "enabled": true,
+        "workspaceTemplate": "~/workspaces/feishu-{agentId}",
+        "agentDirTemplate": "~/.openclaw/agents/{agentId}/agent",
+        "maxAgents": 100
+      },
       "appId": "cli_a915e7fc0a389cc4",
       "appSecret": "UYHKRiK5TaJtTYLHUc6KAbTlKB7qhQb3",
       "accounts": {
@@ -348,7 +397,19 @@
           "appId": "cli_a915e1384f389ced",
           "appSecret": "D1yd8OfXAjHuJTZYNauPxbybvkWplUyK",
           "connectionMode": "websocket"
+        },
+        "default": {
+          "dmPolicy": "pairing",
+          "groupPolicy": "open"
         }
+      },
+      "footer": {
+        "elapsed": true,
+        "status": true
+      },
+      "replyMode": {
+        "group": "streaming",
+        "direct": "streaming"
       }
     }
   },
@@ -389,27 +450,29 @@
     }
   },
   "plugins": {
+    "allow": [
+      "telegram",
+      "feishu-openclaw-plugin"
+    ],
     "entries": {
       "telegram": {
         "enabled": true
       },
-      "feishu": {
+      "feishu-openclaw-plugin": {
         "enabled": true
       }
     },
     "installs": {
-      "feishu": {
+      "feishu-openclaw-plugin": {
         "source": "npm",
-        "spec": "@m1heng-clawd/feishu",
-        "installPath": "/Users/mudandan/.openclaw/extensions/feishu",
-        "version": "0.1.11",
-        "resolvedName": "@m1heng-clawd/feishu",
-        "resolvedVersion": "0.1.11",
-        "resolvedSpec": "@m1heng-clawd/feishu@0.1.11",
-        "integrity": "sha512-VG9Ud74AzjFOvTHcThB/HcKV9emg21E3OMOFGVAtmXhlAsA9BhTkFknr9CjhwYiFV8SAEdTQqD7cVG9UWm2r7A==",
-        "shasum": "2e34dd676106339dfa015e21015bf47b63e69801",
-        "resolvedAt": "2026-02-25T22:10:37.399Z",
-        "installedAt": "2026-02-25T22:10:48.916Z"
+        "spec": "feishu-plugin-onboard",
+        "installPath": "/Users/mudandan/.openclaw/extensions/feishu-openclaw-plugin",
+        "version": "2026.3.7-beta.1",
+        "resolvedName": "feishu-plugin-onboard",
+        "resolvedVersion": "2026.3.7-beta.1",
+        "resolvedSpec": "feishu-plugin-onboard@2026.3.7-beta.1",
+        "resolvedAt": "2026-03-07T00:00:00.000Z",
+        "installedAt": "2026-03-07T00:00:00.000Z"
       }
     }
   }

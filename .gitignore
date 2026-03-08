@@ -18,4 +18,10 @@ workspaces
 *.bak*
 *.sqlite
 *.log
-
+*backup*
+backups/
+debug-tts/
+shared/output/
+telegram/*.txt
+.DS_Store
+workspace-writer/
