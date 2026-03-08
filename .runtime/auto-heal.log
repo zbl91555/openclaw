@@ -1,0 +1,246 @@
+[2026-02-26 22:48:44] gateway unhealthy -> trigger auto-heal
+[2026-02-26 22:48:44] Saved backup: /Users/mudandan/.openclaw/openclaw.json.guard.bak.20260226_224844
+[2026-02-26 22:48:44] Restarting gateway...
+[2026-02-26 22:48:44] restart command returned non-zero
+/Users/mudandan/.openclaw/workspace/scripts/openclaw-restart-heal.sh: line 43: openclaw: command not found
+/Users/mudandan/.openclaw/workspace/scripts/openclaw-restart-heal.sh: line 46: openclaw: command not found
+[2026-02-26 22:48:44] Invoking codex auto-repair...
+[2026-02-26 22:48:44] Codex repair command failed
+[2026-02-26 22:48:44] Gateway still unhealthy after codex repair; applying backup fallback
+[2026-02-26 22:48:44] Restoring backup: /Users/mudandan/.openclaw/openclaw.json.guard.bak.20260226_224844
+[2026-02-26 22:48:44] Gateway recovery failed. Inspect: /var/folders/c8/5ll23yms4076t0skpwch72980000gn/T//openclaw-guard/restart-heal-20260226_224844.log
+[2026-02-26 22:48:44] auto-heal failed
+[2026-02-26 22:50:48] gateway unhealthy -> trigger auto-heal
+[2026-02-26 22:50:48] Saved backup: /Users/mudandan/.openclaw/openclaw.json.guard.bak.20260226_225048
+[2026-02-26 22:50:48] Restarting gateway...
+[2026-02-26 22:52:33] restart command returned non-zero
+Invalid config at /Users/mudandan/.openclaw/openclaw.json:\n- bindings.0.match: Unrecognized key: "conversationId"
+Config invalid
+File: ~/.openclaw/openclaw.json
+Problem:
+  - bindings.0.match: Unrecognized key: "conversationId"
+
+Run: openclaw doctor --fix
+Config issue: bindings.0.match: Unrecognized key: "conversationId"
+Service config issue: bindings.0.match: Unrecognized key: "conversationId"
+RPC probe: failed
+RPC target: ws://127.0.0.1:18789
+  gateway closed (1006 abnormal closure (no close frame)): no close reason
+  Gateway target: ws://127.0.0.1:18789
+  Source: cli --url
+  Config: /Users/mudandan/.openclaw/openclaw.json
+Gateway port 18789 is not listening (service appears running).
+Last gateway error: Invalid config at /Users/mudandan/.openclaw/openclaw.json:\n- bindings.0.match: Unrecognized key: "conversationId"
+Logs: ~/.openclaw/logs/gateway.log
+Errors: ~/.openclaw/logs/gateway.err.log
+Other gateway-like services detected (best effort):
+- ai.openclaw.auto-heal (user, plist: /Users/mudandan/Library/LaunchAgents/ai.openclaw.auto-heal.plist)
+Cleanup hint: launchctl bootout gui/$UID/ai.openclaw.gateway
+Cleanup hint: rm ~/Library/LaunchAgents/ai.openclaw.gateway.plist
+Recommendation: run a single gateway per machine for most setups. One gateway supports multiple agents (see docs: /gateway#multiple-gateways-same-host).
+If you need multiple gateways (e.g., a rescue bot on the same host), isolate ports + config/state (see docs: /gateway#multiple-gateways-same-host).
+Error: gateway closed (1006 abnormal closure (no close frame)): no close reason
+Gateway target: ws://127.0.0.1:18789
+Source: local loopback
+Config: /Users/mudandan/.openclaw/openclaw.json
+Bind: loopback
+[2026-02-26 22:52:42] Invoking codex auto-repair...
+[2026-02-26 22:54:09] Codex repair command finished
+[2026-02-26 22:54:14] Gateway still unhealthy after codex repair; applying backup fallback
+[2026-02-26 22:54:14] Restoring backup: /Users/mudandan/.openclaw/openclaw.json.guard.bak.20260226_225048
+[2026-02-26 22:57:14] gateway unhealthy -> trigger auto-heal
+[2026-02-26 22:57:14] Saved backup: /Users/mudandan/.openclaw/openclaw.json.guard.bak.20260226_225714
+[2026-02-26 22:57:14] Restarting gateway...
+[2026-02-26 22:58:51] restart command returned non-zero
+Invalid config at /Users/mudandan/.openclaw/openclaw.json:\n- bindings.0.match: Unrecognized key: "conversationId"
+Config invalid
+File: ~/.openclaw/openclaw.json
+Problem:
+  - bindings.0.match: Unrecognized key: "conversationId"
+
+Run: openclaw doctor --fix
+Config issue: bindings.0.match: Unrecognized key: "conversationId"
+Service config issue: bindings.0.match: Unrecognized key: "conversationId"
+RPC probe: failed
+RPC target: ws://127.0.0.1:18789
+  gateway closed (1006 abnormal closure (no close frame)): no close reason
+  Gateway target: ws://127.0.0.1:18789
+  Source: cli --url
+  Config: /Users/mudandan/.openclaw/openclaw.json
+Gateway port 18789 is not listening (service appears running).
+Last gateway error: Run: openclaw doctor --fix
+Logs: ~/.openclaw/logs/gateway.log
+Errors: ~/.openclaw/logs/gateway.err.log
+Other gateway-like services detected (best effort):
+- ai.openclaw.auto-heal (user, plist: /Users/mudandan/Library/LaunchAgents/ai.openclaw.auto-heal.plist)
+Cleanup hint: launchctl bootout gui/$UID/ai.openclaw.gateway
+Cleanup hint: rm ~/Library/LaunchAgents/ai.openclaw.gateway.plist
+Recommendation: run a single gateway per machine for most setups. One gateway supports multiple agents (see docs: /gateway#multiple-gateways-same-host).
+If you need multiple gateways (e.g., a rescue bot on the same host), isolate ports + config/state (see docs: /gateway#multiple-gateways-same-host).
+Invalid config at /Users/mudandan/.openclaw/openclaw.json:\n- bindings.0.match: Unrecognized key: "conversationId"
+Config invalid
+File: ~/.openclaw/openclaw.json
+Problem:
+  - bindings.0.match: Unrecognized key: "conversationId"
+
+Run: openclaw doctor --fix
+Error: gateway closed (1006 abnormal closure (no close frame)): no close reason
+Gateway target: ws://127.0.0.1:18789
+Source: local loopback
+Config: /Users/mudandan/.openclaw/openclaw.json
+Bind: loopback
+[2026-02-26 22:59:01] Invoking codex auto-repair...
+[2026-02-26 22:59:58] Codex repair command finished
+[2026-02-26 23:00:03] Gateway recovered after codex repair
+[2026-02-27 00:18:49] gateway unhealthy -> trigger auto-heal
+[2026-02-27 00:18:49] Saved backup: /Users/mudandan/.openclaw/openclaw.json.guard.bak.20260227_001849
+[2026-02-27 00:18:49] Restarting gateway...
+[2026-02-27 00:19:15] Gateway health check passed
+[2026-02-27 00:19:15] No repair needed
+[2026-02-28 05:44:30] gateway unhealthy -> trigger auto-heal
+[2026-02-28 05:44:30] Saved backup: /Users/mudandan/.openclaw/openclaw.json.guard.bak.20260228_054430
+[2026-02-28 05:44:30] Restarting gateway...
+[2026-02-28 05:45:27] Gateway health check passed
+[2026-02-28 05:45:27] No repair needed
+[2026-02-28 07:02:59] gateway unhealthy -> trigger auto-heal
+[2026-02-28 07:02:59] Saved backup: /Users/mudandan/.openclaw/openclaw.json.guard.bak.20260228_070259
+[2026-02-28 07:02:59] Restarting gateway...
+[2026-02-28 07:03:04] restart command returned non-zero
+RPC probe: failed
+RPC target: ws://127.0.0.1:18789
+  gateway closed (1006 abnormal closure (no close frame)): no close reason
+  Gateway target: ws://127.0.0.1:18789
+  Source: cli --url
+  Config: /Users/mudandan/.openclaw/openclaw.json
+Service is loaded but not running (likely exited immediately).
+File logs: /tmp/openclaw/openclaw-2026-02-28.log
+Launchd stdout (if installed): /Users/mudandan/.openclaw/logs/gateway.log
+Launchd stderr (if installed): /Users/mudandan/.openclaw/logs/gateway.err.log
+Other gateway-like services detected (best effort):
+- ai.openclaw.auto-heal (user, plist: /Users/mudandan/Library/LaunchAgents/ai.openclaw.auto-heal.plist)
+Cleanup hint: launchctl bootout gui/$UID/ai.openclaw.gateway
+Cleanup hint: rm ~/Library/LaunchAgents/ai.openclaw.gateway.plist
+Recommendation: run a single gateway per machine for most setups. One gateway supports multiple agents (see docs: /gateway#multiple-gateways-same-host).
+If you need multiple gateways (e.g., a rescue bot on the same host), isolate ports + config/state (see docs: /gateway#multiple-gateways-same-host).
+Error: gateway closed (1006 abnormal closure (no close frame)): no close reason
+Gateway target: ws://127.0.0.1:18789
+Source: local loopback
+Config: /Users/mudandan/.openclaw/openclaw.json
+Bind: loopback
+[2026-02-28 07:03:10] Invoking codex auto-repair...
+[2026-02-28 07:04:24] Codex repair command finished
+[2026-02-28 07:04:27] Gateway recovered after codex repair
+[2026-03-01 07:21:41] gateway unhealthy -> trigger auto-heal
+[2026-03-01 07:21:41] Saved backup: /Users/mudandan/.openclaw/openclaw.json.guard.bak.20260301_072141
+[2026-03-01 07:21:41] Restarting gateway...
+[2026-03-01 07:22:13] Gateway health check passed
+[2026-03-01 07:22:13] No repair needed
+[2026-03-02 20:50:27] gateway unhealthy -> trigger auto-heal
+[2026-03-02 20:50:27] Saved backup: /Users/mudandan/.openclaw/openclaw.json.guard.bak.20260302_205027
+[2026-03-02 20:50:27] Restarting gateway...
+[2026-03-02 20:51:31] Gateway health check passed
+[2026-03-02 20:51:31] No repair needed
+[2026-03-02 21:42:40] gateway unhealthy -> trigger auto-heal
+[2026-03-02 21:42:40] Saved backup: /Users/mudandan/.openclaw/openclaw.json.guard.bak.20260302_214240
+[2026-03-02 21:42:40] Restarting gateway...
+[2026-03-02 21:43:09] Gateway health check passed
+[2026-03-02 21:43:09] No repair needed
+[2026-03-02 21:45:25] gateway unhealthy -> trigger auto-heal
+[2026-03-02 21:45:25] Saved backup: /Users/mudandan/.openclaw/openclaw.json.guard.bak.20260302_214525
+[2026-03-02 21:45:25] Restarting gateway...
+[2026-03-02 21:45:52] Gateway health check passed
+[2026-03-02 21:45:52] No repair needed
+[2026-03-03 19:15:53] gateway unhealthy -> trigger auto-heal
+[2026-03-03 19:15:53] Saved backup: /Users/mudandan/.openclaw/openclaw.json.guard.bak.20260303_191553
+[2026-03-03 19:15:53] Restarting gateway...
+[2026-03-03 19:16:31] Gateway health check failed
+Other gateway-like services detected (best effort):
+- ai.openclaw.auto-heal (user, plist: /Users/mudandan/Library/LaunchAgents/ai.openclaw.auto-heal.plist)
+Cleanup hint: launchctl bootout gui/$UID/ai.openclaw.gateway
+Cleanup hint: rm ~/Library/LaunchAgents/ai.openclaw.gateway.plist
+Recommendation: run a single gateway per machine for most setups. One gateway supports multiple agents (see docs: /gateway#multiple-gateways-same-host).
+If you need multiple gateways (e.g., a rescue bot on the same host), isolate ports + config/state (see docs: /gateway#multiple-gateways-same-host).
+[2026-03-03 19:16:39] Invoking codex auto-repair...
+[2026-03-03 19:19:01] Codex repair command finished
+[2026-03-03 19:19:05] Gateway recovered after codex repair
+[2026-03-03 20:35:14] gateway unhealthy -> trigger auto-heal
+[2026-03-03 20:35:15] Saved backup: /Users/mudandan/.openclaw/openclaw.json.guard.bak.20260303_203514
+[2026-03-03 20:35:15] Restarting gateway...
+[2026-03-03 20:35:41] Gateway health check passed
+[2026-03-03 20:35:41] No repair needed
+[2026-03-04 20:02:02] gateway unhealthy -> trigger auto-heal
+[2026-03-04 20:02:03] Saved backup: /Users/mudandan/.openclaw/openclaw.json.guard.bak.20260304_200203
+[2026-03-04 20:02:03] Restarting gateway...
+[2026-03-04 20:02:40] Gateway health check failed
+Other gateway-like services detected (best effort):
+- ai.openclaw.auto-heal (user, plist: /Users/mudandan/Library/LaunchAgents/ai.openclaw.auto-heal.plist)
+Cleanup hint: launchctl bootout gui/$UID/ai.openclaw.gateway
+Cleanup hint: rm ~/Library/LaunchAgents/ai.openclaw.gateway.plist
+Recommendation: run a single gateway per machine for most setups. One gateway supports multiple agents (see docs: /gateway#multiple-gateways-same-host).
+If you need multiple gateways (e.g., a rescue bot on the same host), isolate ports + config/state (see docs: /gateway#multiple-gateways-same-host).
+[2026-03-04 20:02:47] Invoking codex auto-repair...
+[2026-03-04 20:04:09] Codex repair command finished
+[2026-03-04 20:04:13] Gateway recovered after codex repair
+[2026-03-04 20:09:39] gateway unhealthy -> trigger auto-heal
+[2026-03-04 20:09:39] Saved backup: /Users/mudandan/.openclaw/openclaw.json.guard.bak.20260304_200939
+[2026-03-04 20:09:39] Restarting gateway...
+[2026-03-04 20:10:15] Gateway health check failed
+Other gateway-like services detected (best effort):
+- ai.openclaw.auto-heal (user, plist: /Users/mudandan/Library/LaunchAgents/ai.openclaw.auto-heal.plist)
+Cleanup hint: launchctl bootout gui/$UID/ai.openclaw.gateway
+Cleanup hint: rm ~/Library/LaunchAgents/ai.openclaw.gateway.plist
+Recommendation: run a single gateway per machine for most setups. One gateway supports multiple agents (see docs: /gateway#multiple-gateways-same-host).
+If you need multiple gateways (e.g., a rescue bot on the same host), isolate ports + config/state (see docs: /gateway#multiple-gateways-same-host).
+[2026-03-04 20:10:22] Invoking codex auto-repair...
+[2026-03-04 20:18:44] Codex repair command failed
+[2026-03-04 20:18:47] Gateway recovered after codex repair
+[2026-03-06 16:03:17] gateway unhealthy -> trigger auto-heal
+[2026-03-06 16:03:17] Saved backup: /Users/mudandan/.openclaw/openclaw.json.guard.bak.20260306_160317
+[2026-03-06 16:03:17] Restarting gateway...
+[2026-03-06 16:03:44] Gateway health check passed
+[2026-03-06 16:03:44] No repair needed
+[2026-03-06 16:04:58] gateway unhealthy -> trigger auto-heal
+[2026-03-06 16:04:58] Saved backup: /Users/mudandan/.openclaw/openclaw.json.guard.bak.20260306_160458
+[2026-03-06 16:04:58] Restarting gateway...
+[2026-03-06 16:05:31] Gateway health check passed
+[2026-03-06 16:05:31] No repair needed
+[2026-03-07 12:47:45] gateway unhealthy -> trigger auto-heal
+[2026-03-07 12:47:45] Saved backup: /Users/mudandan/.openclaw/openclaw.json.guard.bak.20260307_124745
+[2026-03-07 12:47:45] Restarting gateway...
+[2026-03-07 12:48:20] Gateway health check passed
+[2026-03-07 12:48:20] No repair needed
+[2026-03-07 15:12:00] gateway unhealthy -> trigger auto-heal
+[2026-03-07 15:12:00] Saved backup: /Users/mudandan/.openclaw/openclaw.json.guard.bak.20260307_151200
+[2026-03-07 15:12:00] Restarting gateway...
+[2026-03-07 15:12:36] Gateway health check passed
+[2026-03-07 15:12:36] No repair needed
+[2026-03-07 15:24:35] gateway unhealthy -> trigger auto-heal
+[2026-03-07 15:24:35] Saved backup: /Users/mudandan/.openclaw/openclaw.json.guard.bak.20260307_152435
+[2026-03-07 15:24:35] Restarting gateway...
+[2026-03-07 15:25:15] Gateway health check passed
+[2026-03-07 15:25:15] No repair needed
+[2026-03-07 15:28:30] gateway unhealthy -> trigger auto-heal
+[2026-03-07 15:28:30] Saved backup: /Users/mudandan/.openclaw/openclaw.json.guard.bak.20260307_152830
+[2026-03-07 15:28:30] Restarting gateway...
+[2026-03-07 15:29:10] Gateway health check passed
+[2026-03-07 15:29:10] No repair needed
+[2026-03-07 16:00:47] gateway unhealthy -> trigger auto-heal
+[2026-03-07 16:00:47] Saved backup: /Users/mudandan/.openclaw/openclaw.json.guard.bak.20260307_160047
+[2026-03-07 16:00:47] Restarting gateway...
+[2026-03-07 16:01:27] Gateway health check passed
+[2026-03-07 16:01:27] No repair needed
+[2026-03-07 16:23:10] gateway unhealthy -> trigger auto-heal
+[2026-03-07 16:23:10] Saved backup: /Users/mudandan/.openclaw/openclaw.json.guard.bak.20260307_162310
+[2026-03-07 16:23:10] Restarting gateway...
+[2026-03-07 16:23:38] Gateway health check passed
+[2026-03-07 16:23:38] No repair needed
+[2026-03-07 16:29:04] gateway unhealthy -> trigger auto-heal
+[2026-03-07 16:29:04] Saved backup: /Users/mudandan/.openclaw/openclaw.json.guard.bak.20260307_162904
+[2026-03-07 16:29:04] Restarting gateway...
+[2026-03-07 16:29:38] Gateway health check passed
+[2026-03-07 16:29:38] No repair needed
+[2026-03-07 19:44:28] gateway unhealthy -> trigger auto-heal
+[2026-03-07 19:44:28] Saved backup: /Users/mudandan/.openclaw/openclaw.json.guard.bak.20260307_194428
+[2026-03-07 19:44:28] Restarting gateway...
+[2026-03-07 19:45:01] Gateway health check passed
+[2026-03-07 19:45:01] No repair needed

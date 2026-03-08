@@ -1,43 +1,55 @@
-# TOOLS.md — 代码极客·工具路由规则
+# TOOLS.md - 工程负责人工具路由
 
 ## 💻 AI 编程 CLI 工具
 
 | 工具 | 场景 | 命令 |
 |------|------|------|
-| **Claude Code** | 写文件、重构、复杂自动化 | `claude --dangerously-skip-permissions -p "..."` |
-| **Gemini CLI** | 代码审查、建议、分析 | `gemini -p "审查这段代码"` |
-| **Codex** | 批量任务、多文件改造 | `codex exec --full-auto "..."` |
+| **Claude Code** | 写文件、重构、复杂自动化 | `claude -p "..."` |
+| **Gemini CLI** | 快速代码审查、建议、文档分析、批量分析 | `gemini -p "审查这段代码"` |
+| **Codex** | 复杂任务深度审查、失败接管修复、配置修改、高风险重构 | `codex exec --full-auto "..."` |
 
-## 🛠️ Skill 路由
+## 🛠️ Skill 路由与场景指南 (Headless 无头模式为主)
+
+### 📌 哪些场景需要路由到 Gemini CLI
+适合**长链路的静态分析**、**信息提取**、**文档生成**等「**非破坏性只读任务**」。
+- **长链任务（例如：深度分析 GitHub 项目）**：如果在对话中被要求深度分析一个 GitHub 的项目，**正确的做法是**：在系统级临时目录（使用 `mktemp -d` 或 `/tmp/` 下创建隔离目录）中 `git clone` 下该项目代码，然后用 `gemini cli`（可结合 `@codebase_investigator`）对整个项目进行系统的归纳和分析。强烈禁止直接在核心 workspace 或系统应用目录下随意拉取未知的外部源码。
+- **批量日志分析**：提取生产环境或多模块的庞大日志文件，使用 `gemini cli` 配合特定 Prompt 提取错误模式、进行统一归因。
+- **文档整理与沉淀**：扫描庞大的旧代码库，利用 `gemini cli` 快速提取出对应的接口文档、类图机制，并生存 Markdown 结构化输出。
+- **自动化流与轻量任务**：生成 commit 信息、生成 PR 描述、针对单个或小范围文件的极速 Code Review 检查。
+
+### 📌 哪些场景需要路由到 Codex
+适合需要**安全沙箱**、**具有破坏性/修改性执行**、**自主多步验证**的「**系统级或高风险任务**」。
+- **系统配置调整（例如：修改 Openclaw 配置）**：如果被要求对 `openclaw` 的配置（如 `~/.openclaw/openclaw.json`）进行调整，**正确的做法是**：应该直接使用 `codex`（如 `codex exec`）帮你去做。Codex 更适合具备执行态势的任务并能自测配置的有效性。
+- **高风险复杂重构**：如大面积的依赖包升级、破坏性 API 接口版本更新。需要在独立环境/沙箱内通过 `codex` 接管去跑测试并修改多处文件联动。
+- **复杂环境与脚手架搭建**：如拉取复杂的多模块微服务模板到本地，并进行依赖安装、环境变量配置以及启动测试。
+- **项目级 BUG 深度接管**：只要给出一段报错信息或复现路径，让 `codex` 自主全局搜索项目、在多文件反复修改验证，直到 Test Pass 才交还控制权。
+
+## 🛠️ 常规 Skill 路由字典
 
 | Skill | 触发时机 |
 |-------|---------|
-| `gemini-cli` | 代码 review、注释生成、commit 信息 |
+| `codex` / `codex-review` | 处理复杂/高风险任务、重构、配置修改、Bug 修复 |
+| `gemini-cli` | 轻量代码 review、注释/文档/日志生成、GitHub 项目分析 |
 | `ui-ux-pro-max` | 前端 UI 设计 → 实现 |
 | `cloudflare-tunnel` | 内网穿透、暴露本地服务到公网 |
-| `cliproxyapi` | 修改 AI 代理配置、添加模型 |
+| `cliproxyapi` | 修改 AI 代理模型配置相关 |
 | `find` | 在文件系统中精确查找文件/内容 |
-
-## 🔄 子 Agent 调度
-
-```bash
-# 并行启动前端子任务
-bash pty:true workdir:~/project background:true \
-  command:"claude --dangerously-skip-permissions -p '实现前端页面'"
-
-# 并行启动后端子任务
-bash pty:true workdir:~/project background:true \
-  command:"claude --dangerously-skip-permissions -p '实现后端 API'"
-```
 
 ## 📏 代码交付标准
 
-每次交付前自动执行：
-1. `gemini -p "review 这段代码，找出明显问题"` — 自动 review
-2. 确认代码可在本地运行
-3. 提供测试命令
+- 普通任务：至少完成一次快速 review（Gemini 或 Codex 任选其一）。
+- 复杂/高风险任务：必须执行 `codex exec review --uncommitted --skip-git-repo-check`。
+- 交付时提供：变更摘要、风险点、验证命令。
+- 命中复杂/高风险门禁时，未附 review 结论禁止交付；统一回执：`BLOCKED: missing codex review`。
+- 若 review 发现高风险且未修复，禁止交付；统一回执：`BLOCKED: unresolved review findings`。
+
+### 复杂/高风险门禁判定
+- 变更 >= 3 个文件或跨 2 个以上模块
+- 涉及配置（如 `openclaw.json`）/鉴权/路由/权限/数据删除
+- 涉及核心链路（启动、消息分发、任务派发）
+- subagent 连续两轮无法收敛
 
 ## ⚠️ 禁止事项
 
-- 禁止在 `~/.openclaw/` 目录下使用 coding-agent（可能破坏配置）
-- 禁止在未确认的情况下做 `rm -rf` 等破坏性操作
+- 禁止在 `~/.openclaw/` 目录下进行高风险破坏性操作（除了明确指示通过 `codex` 修改配置文件）。如果是本机写操作，需要用 `codex`，在执行的时候确认一下。
+- 禁止在未确认的情况下做 `rm -rf`、`git reset --hard` 等操作。

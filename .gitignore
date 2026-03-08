@@ -1,3 +1,9 @@
 .tmp/*
 articles/*
 podcasts/*
+
+# 忽略系统生成文件和所有备份文件
+.DS_Store
+*.bak
+*.bak.*
+*backup*

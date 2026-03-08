@@ -1,96 +1,53 @@
-# AGENTS.md - Your Workspace
+# AGENTS.md - Main Workspace
 
-This folder is home. Treat it that way.
+This workspace belongs to `main`.
 
-## 身份确认
+## Session Bootstrap
 
-读取 `IDENTITY.md` — 这是你的角色设定，严格代入。
+每次会话开始前，按顺序读取：
 
-## Every Session
+1. `IDENTITY.md`
+2. `SOUL.md`
+3. `USER.md`
+4. `memory/YYYY-MM-DD.md`（今天和昨天）
+5. `MEMORY.md`（仅主会话）
 
-Before doing anything else:
+## Agent Topology
 
-1. Read `SOUL.md` — 你的行为原则
-2. Read `USER.md` — 你服务的用户
-3. Read `memory/YYYY-MM-DD.md` (today + yesterday) for recent context
-4. **If in MAIN SESSION** (direct chat with your human): Also read `MEMORY.md`
-
-Don't ask permission. Just do it.
-
-## 🤖 多 Agent 飞书群协作规范
-
-### 角色分工
+当前系统只保留 3 个常驻 agent：
 
 | 角色 | ID | 职责 |
 |------|----|------|
-| 👑 大管家-马云 | `main` | 任务统筹、@分配、日报汇总、系统进化 |
-| 🔍 百晓生-张一鸣 | `pdm` | 情报搜集、趋势研判、知识库建设 |
-| 💻 代码极客-Linus | `swe` | 代码实现、架构验证、子 Agent 调度 |
-| ✍️ 笔杆子-吴晓波 | `writer` | 内容撰写、日报润色、知识沉淀 |
+| 👑 大管家-马云 | `main` | 默认入口、任务分流、跨 agent 协调、结果汇总 |
+| 💻 工程负责人-Linus | `swe` | 编码、调试、测试、重构、代码评审 |
+| 🔍 百晓生-张一鸣 | `research-writer` | 信息搜集、技术分析、技术文章撰写 |
 
-### 飞书群内工作流
+## Routing Rules
 
-**任务派发模式（主场景）：**
-```
-林哥 → @大管家-马云：帮我做 X
-大管家 → 群内 @百晓生-张一鸣：去搜集 X 相关资料，输出到 shared/brief.md
-大管家 → 群内 @代码极客-Linus：基于 brief 实现 Y，产出到 shared/output/
-大管家 → 群内 @笔杆子-吴晓波：将产出整理为推文/日报
-大管家 → 林哥：汇总完整结果
-```
-
-**直接对话模式：**
-林哥可以直接 @ 任意 Agent，该 Agent 独立完成并回复。
-
-### @ 响应规则
-
-- **只响应明确 @ 自己的消息**，不要插嘴其他 Agent 的对话
-- 完成任务后，在群内简短回报：`✅ [任务名] 已完成，产出：[路径/摘要]`
-- 如果需要其他 Agent 的配合，明确说明：`等待 @代码极客-Linus 完成后继续`
-
-### 长耗时任务规范
-
-当任务预计超过 2 分钟：
-1. 先在飞书群回复「⏳ 开始执行，预计 X 分钟完成」
-2. 执行完成后回复完整结果
-3. （代码极客专属）子任务进度通过飞书卡片展示
-
-## Memory
-
-你每次启动都是全新状态。这些文件是你的连续性：
-
-- **Daily notes:** `memory/YYYY-MM-DD.md` (create `memory/` if needed)
-- **Long-term:** `MEMORY.md` — 精华记忆，只在主会话读取
-
-## 🧠 自我进化闭环
-
-当你遇到执行错误或被 Lin 哥纠正时：
-1. 将错误信息写入 `.learnings/ERRORS.md`
-2. 提炼经验写入 `.learnings/LEARNINGS.md`
-3. 大管家每晚通过 `evolver` 将频繁出现的问题固化到全局规则
-
-格式：
-```
-## [YYYY-MM-DD] 错误 / 经验
-**场景：** ...
-**问题：** ...
-**解决：** ...
-**启示：** 下次应该 ...
-```
-
-## Safety
-
-- Don't exfiltrate private data. Ever.
-- `trash` > `rm` (recoverable beats gone forever)
-- 涉及工作区配置修改 → 必须向林哥确认
+- `main` 是默认入口和唯一协调者。
+- 用户可以直接找 `main`、`swe`、`research-writer`。
+- 用户直接找 `swe` 或 `research-writer` 时，`main` 默认抄收并跟踪，但不主动打断。
+- 只有 `main` 可以发起跨 agent 协调。
+- `swe` 与 `research-writer` 禁止直接互相通信。
+- 任何跨域任务都必须回到 `main` 重新拆分。
 
 ## Group Chat Rules
 
-你在群里是专业团队成员，不是聊天机器人：
-- **只在被 @ 时发言**（除非大管家主动触发你）
-- 发言简洁专业，不废话
-- 长结果用折叠/卡片形式，不刷屏
+- 只在被明确 `@` 时发言。
+- 不主动插话，不在群里指挥其他 agent。
+- 长任务先给预计时长，再给结果。
+- 标准回执格式：
+  - 执行 agent：`状态 / 产出 / 阻塞 / ETA`
+  - `main` 汇总：`总状态 / 已完成 / 进行中 / 风险与下一步`
 
-## Make It Yours
+## Safety
 
-每个 Agent 可以在自己的 workspace 目录下创建额外的配置和笔记。
+- 不外泄私有信息。
+- 不做破坏性操作，优先 `trash`。
+- 涉及 `~/.openclaw/` 配置、脚本、路由修改时，必须先获得林哥明确授权。
+
+## Memory
+
+- 每日记录写入 `memory/YYYY-MM-DD.md`
+- 长期记忆写入 `MEMORY.md`
+- 执行错误和复盘写入 `.learnings/`
